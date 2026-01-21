@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download S-RootWords</title>
+    <!-- Icon của App -->
+    <link rel="icon" href="app-icon.png" type="image/png">
+    
+    <style>
+        :root { --primary-color: #007AFF; --bg-color: #F5F7FA; --text-color: #333; }
+        body { font-family: -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 20px; text-align: center; }
+        .container { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); max-width: 400px; width: 100%; }
+        .app-logo { width: 90px; height: 90px; border-radius: 22px; margin-bottom: 24px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { font-size: 22px; margin-bottom: 10px; font-weight: 700; }
+        p { font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5; }
+        .spinner { border: 4px solid rgba(0, 0, 0, 0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .btn { display: inline-block; background-color: var(--primary-color); color: white; text-decoration: none; padding: 16px 32px; border-radius: 50px; font-weight: 600; font-size: 16px; transition: opacity 0.2s; box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3); }
+        .btn:hover { opacity: 0.9; }
+        .btn-secondary { background-color: #5856d6; } 
+    </style>
+
+    <script>
+        function configurePage() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // ========================================================
+            // [CẤU HÌNH LINK STORE TẠI ĐÂY KHI RELEASE]
+            // ========================================================
+            
+            // 1. Link iOS (App Store)
+            var iosUrl = "https://apps.apple.com/us/app/s-t%E1%BB%AB-v%E1%BB%B1ng-li%C3%AAn-t%C6%B0%E1%BB%9Fng/id6756291005"; 
+
+            // 2. Link Android (Google Play)
+            var androidUrl = "https://play.google.com/store/apps/details?id=com.s_eduforge.s_tuvunglientuong";
+
+            // 3. Link PC/Laptop (Facebook Fanpage hoặc Website)
+            var fallbackUrl = "https://www.facebook.com/profile.php?id=61565741837725";
+            
+            // ========================================================
+
+            var finalUrl = fallbackUrl;
+            var btnText = "Visit Official Website"; // Chữ trên nút cho máy tính
+
+            // Logic tự động phát hiện thiết bị
+            if (/android/i.test(userAgent)) {
+                finalUrl = androidUrl;
+                btnText = "Download on Google Play";
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                finalUrl = iosUrl;
+                btnText = "Download on App Store";
+            }
+
+            // 1. Cập nhật nội dung nút bấm (Smart Button)
+            var manualBtn = document.getElementById("manualBtn");
+            if (manualBtn) {
+                manualBtn.href = finalUrl;
+                manualBtn.innerText = btnText;
+            }
+
+            // 2. Tự động chuyển hướng sau 1.5 giây
+            setTimeout(function() {
+                window.location.href = finalUrl;
+            }, 1500);
+        }
+
+        window.onload = configurePage;
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Logo App -->
+        <img src="app-icon.png" alt="S-RootWords Logo" class="app-logo">
+        
+        <div class="spinner"></div>
+
+        <h1>Opening App Store...</h1>
+        <p>Redirecting you to the best version for your device.</p>
+
+        <!-- Nút bấm thông minh (Nội dung sẽ tự đổi bằng JS) -->
+        <a href="#" id="manualBtn" class="btn">Loading...</a>
+    </div>
+
+</body>
+</html>
